@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "Airbnb Rating Percentile",
+    "version": "1.0",
+    "description": "Displays the percentile of Airbnb ratings on listing pages.",
+    "permissions": ["activeTab", "scripting"],
+    "host_permissions": ["https://*.airbnb.com/*"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  
