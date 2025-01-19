@@ -18,10 +18,12 @@ async function calculatePercentile() {
 
         function calculatePercentile(rating, ratings) {
             const sortedRatings = ratings.slice().sort((a, b) => a - b);
-            const belowCount = sortedRatings.filter((r) => r < rating).length;
+            const belowOrEqualCount = sortedRatings.filter((r) => r <= rating).length;
             const totalCount = sortedRatings.length;
-            return ((belowCount / totalCount) * 100).toFixed(2);
-        }
+            const percentile = (belowOrEqualCount / totalCount) * 100;
+            return percentile.toFixed(2);
+          }
+          
 
         const percentile = calculatePercentile(rating, ratings);
         resultDiv.textContent = `Rating: ${rating}, Percentile: ${percentile}%`;
