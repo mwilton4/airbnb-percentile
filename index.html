@@ -10,7 +10,7 @@
             margin: 20px;
         }
         .container {
-            max-width: 400px;
+            max-width: 600px;
             margin: auto;
             text-align: center;
         }
@@ -24,7 +24,11 @@
             font-size: 18px;
             color: blue;
         }
+        canvas {
+            margin-top: 20px;
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
@@ -32,6 +36,7 @@
         <input type="number" id="rating" placeholder="Enter rating (e.g., 4.5)" step="0.01" min="0" max="5">
         <button onclick="calculatePercentile()">Calculate Percentile</button>
         <div class="result" id="result"></div>
+        <canvas id="ratingChart" width="600" height="400"></canvas>
     </div>
     <script src="script.js"></script>
 </body>

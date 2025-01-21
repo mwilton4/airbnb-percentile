@@ -22,11 +22,71 @@ async function calculatePercentile() {
             const totalCount = sortedRatings.length;
             const percentile = (belowOrEqualCount / totalCount) * 100;
             return percentile.toFixed(2);
-          }
-          
+        }
 
         const percentile = calculatePercentile(rating, ratings);
         resultDiv.textContent = `Rating: ${rating}, Percentile: ${percentile}%`;
+
+        // Generate histogram
+        const ctx = document.getElementById('ratingChart').getContext('2d');
+        const bins = 50;
+        const binWidth = 5 / bins;
+        const histogramData = new Array(bins).fill(0);
+
+        ratings.forEach(r => {
+            const binIndex = Math.floor(r / binWidth);
+            histogramData[binIndex]++;
+        });
+
+        const labels = Array.from({ length: bins }, (_, i) => (i * binWidth).toFixed(2));
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ratings',
+                    data: histogramData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Rating'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Frequency'
+                        }
+                    }
+                },
+                plugins: {
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                xMin: rating,
+                                xMax: rating,
+                                borderColor: 'red',
+                                borderWidth: 2,
+                                label: {
+                                    content: `Rating: ${rating}`,
+                                    enabled: true,
+                                    position: 'top'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
     } catch (error) {
         console.error("Error loading ratings data:", error);
         resultDiv.textContent = 'Error loading ratings data. Please try again later.';
