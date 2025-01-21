@@ -1,3 +1,5 @@
+let chartInstance = null;
+
 async function calculatePercentile() {
     const ratingInput = document.getElementById('rating');
     const resultDiv = document.getElementById('result');
@@ -40,7 +42,12 @@ async function calculatePercentile() {
 
         const labels = Array.from({ length: bins }, (_, i) => (i * binWidth).toFixed(2));
 
-        new Chart(ctx, {
+        // Destroy existing chart instance if it exists
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
+
+        chartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
