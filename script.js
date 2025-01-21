@@ -92,7 +92,8 @@ async function calculatePercentile() {
                         }
                     }
                 }
-            }
+            },
+            plugins: [ChartAnnotation]
         });
     } catch (error) {
         console.error("Error loading ratings data:", error);
