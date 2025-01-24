@@ -20,7 +20,7 @@ async function calculatePercentile() {
 
     try {
         // Load the JSON file for the selected city
-        const response = await fetch(`${city}-percentile-data.json`);
+        const response = await fetch(`CityJSONs/${city}-percentile-data.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
