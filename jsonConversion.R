@@ -20,7 +20,7 @@ for (csv_file in csv_files) {
   city_name <- gsub("_Listings_.*", "", file_name) # Removes "_Listings_*"
   
   # Convert city name to desired format (e.g., Albany -> lowercase + "-percentile-data")
-  city_name <- paste0(city_name, "-percentile-data.json")
+  city_name <- paste0(city_name, "-percentile-data")
   # Read the CSV file
   ratings_data <- read.csv(csv_file)
   ratings_data <- na.omit(ratings_data$review_scores_rating)
