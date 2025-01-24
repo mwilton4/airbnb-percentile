@@ -1,7 +1,7 @@
 (async () => {
     console.log("Content script running");
     try {
-        const response = await fetch(chrome.runtime.getURL("percentile-data.json"));
+        const response = await fetch(chrome.runtime.getURL("austin-percentile-data.json"));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

@@ -20,7 +20,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["percentile-data.json"],
+      "resources": ["austin-percentile-data.json"],
       "matches": ["*://*.airbnb.com/*"]
     }
   ],

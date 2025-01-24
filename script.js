@@ -2,18 +2,25 @@ let chart; // Global variable to store the chart instance
 
 // Function to calculate the percentile and render the histogram
 async function calculatePercentile() {
+    const citySelect = document.getElementById('city');
     const ratingInput = document.getElementById('rating');
     const resultDiv = document.getElementById('result');
+    const city = citySelect.value;
     const rating = parseFloat(ratingInput.value);
 
+    if (!city) {
+        resultDiv.textContent = 'Please select a city.';
+        return;
+    }
+    
     if (isNaN(rating) || rating < 0 || rating > 5) {
         resultDiv.textContent = 'Please enter a valid rating between 0 and 5.';
         return;
     }
 
     try {
-        // Load the ratings data from the JSON file
-        const response = await fetch('percentile-data.json');
+        // Load the JSON file for the selected city
+        const response = await fetch(`${city}-percentile-data.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -30,7 +37,7 @@ async function calculatePercentile() {
         }
 
         const percentile = calculatePercentileValue(rating, ratings);
-        resultDiv.textContent = `Rating: ${rating}, Percentile: ${percentile}%`;
+        resultDiv.textContent = `City: ${city.charAt(0).toUpperCase() + city.slice(1)}, Rating: ${rating}, Percentile: ${percentile}%`;
 
         // Create histogram data
         const bins = 50;
@@ -46,8 +53,8 @@ async function calculatePercentile() {
         // Render the chart
         generateChart(ratings, binWidth, bins, labels, histogramData, rating);
     } catch (error) {
-        console.error("Error loading ratings data:", error);
-        resultDiv.textContent = 'Error loading ratings data. Please try again later.';
+        console.error(`Error loading ratings data for ${city}:`, error);
+        resultDiv.textContent = `Error loading ratings data for ${city}. Please try again later.`;
     }
 }
 
